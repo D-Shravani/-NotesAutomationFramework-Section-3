@@ -1,0 +1,31 @@
+pipeline:
+  name: Notes Automation Framework Pipeline
+
+  stages:
+
+    - stage: Checkout Code
+      steps:
+        - git clone repository
+
+    - stage: Install Dependencies
+      steps:
+        - pip install -r requirements.txt
+
+    - stage: Run Parallel Tests
+      steps:
+        - pytest -n auto
+
+    - stage: Generate HTML Report
+      steps:
+        - pytest --html=reports/report.html
+
+    - stage: Generate Allure Results
+      steps:
+        - pytest --alluredir=allure-results
+
+    - stage: Archive Artifacts
+      steps:
+        - screenshots/
+        - logs/
+        - reports/
+        - allure-results/
