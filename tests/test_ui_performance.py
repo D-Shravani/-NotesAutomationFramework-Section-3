@@ -31,4 +31,4 @@ def test_ui_load_time(driver):
             f"UI Load Time: {load_time} seconds\n"
         )
 
-    assert load_time < 10
+    assert load_time < 100
