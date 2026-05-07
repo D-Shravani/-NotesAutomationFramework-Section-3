@@ -25,7 +25,7 @@ pipeline {
 
             steps {
 
-                bat 'venv\\Scripts\\python.exe -m pip install -r requirements.txt'
+                bat 'python -m pip install -r requirements.txt'
             }
         }
 
@@ -33,7 +33,7 @@ pipeline {
 
             steps {
 
-                bat 'venv\\Scripts\\python.exe -m pytest tests -n 2 --html=reports/report.html --alluredir=allure-results'
+                bat 'pytest tests -n 2 --html=reports/report.html --alluredir=allure-results'
             }
         }
 
