@@ -1,9 +1,6 @@
-import pytest
-
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-
-from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+import pytest
 
 
 @pytest.fixture
@@ -21,14 +18,12 @@ def driver():
 
     options.add_argument("--remote-allow-origins=*")
 
-    driver = webdriver.Chrome(
-        service=Service(
-            ChromeDriverManager().install()
-        ),
+    driver = webdriver.Remote(
+
+        command_executor="http://localhost:4444/wd/hub",
+
         options=options
     )
-
-    driver.implicitly_wait(10)
 
     yield driver
 
