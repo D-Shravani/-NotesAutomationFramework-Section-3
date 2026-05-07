@@ -4,14 +4,20 @@ pipeline {
 
     stages {
 
+        stage('Checkout SCM') {
+
+            steps {
+
+                git branch: 'main',
+                url: 'https://github.com/D-Shravani/-NotesAutomationFramework-Section-3.git'
+            }
+        }
+
         stage('Go To Project Folder') {
 
             steps {
 
-                dir('C:\\Users\\dsaik\\OneDrive\\Desktop\\NotesAutomationFramework') {
-
-                    bat 'dir'
-                }
+                bat 'dir'
             }
         }
 
@@ -19,10 +25,7 @@ pipeline {
 
             steps {
 
-                dir('C:\\Users\\dsaik\\OneDrive\\Desktop\\NotesAutomationFramework') {
-
-                    bat 'venv\\Scripts\\python.exe -m pip install -r requirements.txt'
-                }
+                bat 'venv\\Scripts\\python.exe -m pip install -r requirements.txt'
             }
         }
 
@@ -30,10 +33,7 @@ pipeline {
 
             steps {
 
-                dir('C:\\Users\\dsaik\\OneDrive\\Desktop\\NotesAutomationFramework') {
-
-                    bat 'venv\\Scripts\\python.exe -m pytest tests -n 2 --html=reports/report.html --alluredir=allure-results'
-                }
+                bat 'venv\\Scripts\\python.exe -m pytest tests -n 2 --html=reports/report.html --alluredir=allure-results'
             }
         }
 
@@ -41,10 +41,34 @@ pipeline {
 
             steps {
 
-                dir('C:\\Users\\dsaik\\OneDrive\\Desktop\\NotesAutomationFramework') {
+                archiveArtifacts artifacts: 'reports/*, screenshots/*, logs/*, allure-results/*', allowEmptyArchive: true
+            }
+        }
 
-                    archiveArtifacts artifacts: 'reports/*, screenshots/*, allure-results/*', allowEmptyArchive: true
-                }
+        stage('Publish HTML Report') {
+
+            steps {
+
+                publishHTML([
+                    allowMissing: true,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: 'reports',
+                    reportFiles: 'report.html',
+                    reportName: 'Pytest HTML Report'
+                ])
+            }
+        }
+
+        stage('Publish Allure Report') {
+
+            steps {
+
+                allure([
+                    includeProperties: false,
+                    jdk: '',
+                    results: [[path: 'allure-results']]
+                ])
             }
         }
     }
