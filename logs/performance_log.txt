@@ -1,0 +1,4 @@
+API Response Time: 2.6182754039764404 seconds
+API Response Time: 1.23172926902771 seconds
+UI Load Time: 5.968287706375122 seconds
+UI Load Time: 4.519042015075684 seconds
