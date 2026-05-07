@@ -1,10 +1,13 @@
 from selenium import webdriver
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 import pytest
 
 
 @pytest.fixture
 def driver():
+
+    execution = "local"
 
     options = webdriver.ChromeOptions()
 
@@ -18,12 +21,26 @@ def driver():
 
     options.add_argument("--remote-allow-origins=*")
 
-    driver = webdriver.Remote(
 
-        command_executor="http://localhost:4444/wd/hub",
+    if execution == "local":
 
-        options=options
-    )
+        driver = webdriver.Chrome(
+
+            service=Service(
+                ChromeDriverManager().install()
+            ),
+
+            options=options
+        )
+
+    else:
+
+        driver = webdriver.Remote(
+
+            command_executor="http://localhost:4444",
+
+            options=options
+        )
 
     yield driver
 

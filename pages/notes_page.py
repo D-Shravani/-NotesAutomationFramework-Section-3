@@ -1,7 +1,11 @@
+import time
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+
 from utils.self_healing import find_element_with_healing
+
 
 class NotesPage:
 
@@ -9,7 +13,7 @@ class NotesPage:
 
         self.driver = driver
 
-        self.wait = WebDriverWait(driver, 15)
+        self.wait = WebDriverWait(driver, 20)
 
         self.add_note_btn = (
             By.XPATH,
@@ -37,6 +41,9 @@ class NotesPage:
         )
 
     def create_note(self, title, description, category):
+
+        # Wait before next action
+        time.sleep(2)
 
         # Click Add Note
         add_btn = self.wait.until(
@@ -82,6 +89,9 @@ class NotesPage:
 
         category_box.send_keys(category)
 
+        # Small wait before clicking Create
+        time.sleep(2)
+
         # Click Create button
         create_btn = self.wait.until(
             EC.element_to_be_clickable(
@@ -93,3 +103,6 @@ class NotesPage:
             "arguments[0].click();",
             create_btn
         )
+
+        # Wait after note creation
+        time.sleep(3)

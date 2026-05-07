@@ -75,6 +75,8 @@ def test_create_multiple_notes(driver):
             category=note["category"]
         )
 
-        time.sleep(2)
+        # Stabilization wait
+        time.sleep(3)
 
-    
+    # Validation
+    assert "notes" in driver.current_url.lower()

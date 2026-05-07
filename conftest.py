@@ -1,10 +1,7 @@
 from fixtures.browser_fixture import driver
-
 import pytest
 
-
 @pytest.hookimpl(hookwrapper=True)
-
 def pytest_runtest_makereport(item, call):
 
     outcome = yield
@@ -13,8 +10,10 @@ def pytest_runtest_makereport(item, call):
 
     if report.when == "call" and report.failed:
 
-        driver = item.funcargs["driver"]
+        driver = item.funcargs.get("driver")
 
-        driver.save_screenshot(
-            f"screenshots/{item.name}.png"
-        )
+        if driver:
+
+            driver.save_screenshot(
+                f"screenshots/{item.name}.png"
+            )
