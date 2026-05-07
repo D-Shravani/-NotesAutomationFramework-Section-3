@@ -1,7 +1,7 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
+from utils.self_healing import find_element_with_healing
 
 class NotesPage:
 
@@ -58,8 +58,8 @@ class NotesPage:
         )
 
         # Enter title
-        title_box = self.driver.find_element(
-            *self.title
+        title_box = find_element_with_healing(
+            self.driver
         )
 
         title_box.clear()
