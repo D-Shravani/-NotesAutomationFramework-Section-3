@@ -8,3 +8,14 @@ API Response Time: 2.4023091793060303 seconds
 UI Load Time: 23.710832357406616 seconds
 API Response Time: 3.0689563751220703 seconds
 UI Load Time: 3.759580612182617 seconds
+API Response Time: 5.522475719451904 seconds
+API Response Time: 2.8843865394592285 seconds
+UI Load Time: 11.824265718460083 seconds
+API Response Time: 4.393174409866333 seconds
+UI Load Time: 10.466338872909546 seconds
+API Response Time: 1.1893553733825684 seconds
+UI Load Time: 4.837160587310791 seconds
+API Response Time: 1.8271582126617432 seconds
+UI Load Time: 4.255609035491943 seconds
+API Response Time: 1.274606704711914 seconds
+UI Load Time: 3.8041281700134277 seconds
